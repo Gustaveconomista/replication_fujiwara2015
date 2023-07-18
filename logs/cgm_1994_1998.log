@@ -1,0 +1,1594 @@
+---------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  \\sbsb2\DISOC_RIO\BMT\RAIS\pisos\Projeto_Pisos2022\Replication_Fujiwara2015\logs\cgm_1994_1998.log
+  log type:  text
+ opened on:  11 Jul 2023, 19:04:04
+
+. qui reg d.inst98e reg* delec* if year==1998 
+
+.  predict z, resid
+(27 missing values generated)
+
+. foreach var in `list' {
+  2.  local y `var'
+  3. qui reg d.`y' reg* delec* if year==1998 
+  4.  predict y_`var', resid
+  5. reg y_`var' z if year==1998, cl(uf)
+  6. cgmwildboot y_`var' z if year==1998, cl(uf) bootcluster(uf) seed(1000) reps(1000)
+  7. }
+
+. drop y_*
+variable y_* not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. clear all
+
+. set more off
+
+. cd "\\sbsb2\DISOC_RIO\BMT\RAIS\pisos\Projeto_Pisos2022\Replication_Fujiwara2015\Dados"
+\\sbsb2\DISOC_RIO\BMT\RAIS\pisos\Projeto_Pisos2022\Replication_Fujiwara2015\Dados
+
+. use state.dta, clear
+
+. 
+. *Sets folder where all logs will be
+. cd "\\sbsb2\DISOC_RIO\BMT\RAIS\pisos\Projeto_Pisos2022\Replication_Fujiwara2015\logs"
+\\sbsb2\DISOC_RIO\BMT\RAIS\pisos\Projeto_Pisos2022\Replication_Fujiwara2015\logs
+
+. 
+end of do-file
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. gen inst_g=inst98e if year==1998
+(54 missing values generated)
+
+. replace inst_g=1-inst02e if year==2002
+(27 real changes made)
+
+. 
+. reg d.inst98e reg* if year==1998 
+note: reg5 omitted because of collinearity
+note: reg1_94 omitted because of collinearity
+note: reg2_94 omitted because of collinearity
+note: reg3_94 omitted because of collinearity
+note: reg4_94 omitted because of collinearity
+note: reg5_94 omitted because of collinearity
+note: reg1_98 omitted because of collinearity
+note: reg2_98 omitted because of collinearity
+note: reg3_98 omitted because of collinearity
+note: reg4_98 omitted because of collinearity
+note: reg5_98 omitted because of collinearity
+note: reg1_02 omitted because of collinearity
+note: reg2_02 omitted because of collinearity
+note: reg3_02 omitted because of collinearity
+note: reg4_02 omitted because of collinearity
+note: reg5_02 omitted because of collinearity
+
+      Source |       SS           df       MS      Number of obs   =        27
+-------------+----------------------------------   F(4, 22)        =      0.93
+       Model |  .256112023         4  .064028006   Prob > F        =    0.4643
+    Residual |  1.51353314        22  .068796961   R-squared       =    0.1447
+-------------+----------------------------------   Adj R-squared   =   -0.0108
+       Total |  1.76964516        26  .068063275   Root MSE        =    .26229
+
+------------------------------------------------------------------------------
+   D.inst98e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        reg1 |    .101025   .2003286     0.50   0.619    -.3144312    .5164811
+        reg2 |  -.0349218   .1748612    -0.20   0.844    -.3975617     .327718
+        reg3 |   .1125651   .1809985     0.62   0.540    -.2628028     .487933
+        reg4 |   .2473565   .2003286     1.23   0.230    -.1680997    .6628126
+        reg5 |          0  (omitted)
+     reg1_94 |          0  (omitted)
+     reg2_94 |          0  (omitted)
+     reg3_94 |          0  (omitted)
+     reg4_94 |          0  (omitted)
+     reg5_94 |          0  (omitted)
+     reg1_98 |          0  (omitted)
+     reg2_98 |          0  (omitted)
+     reg3_98 |          0  (omitted)
+     reg4_98 |          0  (omitted)
+     reg5_98 |          0  (omitted)
+     reg1_02 |          0  (omitted)
+     reg2_02 |          0  (omitted)
+     reg3_02 |          0  (omitted)
+     reg4_02 |          0  (omitted)
+     reg5_02 |          0  (omitted)
+       _cons |   .4492893   .1514342     2.97   0.007      .135234    .7633446
+------------------------------------------------------------------------------
+
+.   predict inst98e_ort, resid 
+(27 missing values generated)
+
+. reg d.inst02e reg* if year==2002 
+note: reg5 omitted because of collinearity
+note: reg1_94 omitted because of collinearity
+note: reg2_94 omitted because of collinearity
+note: reg3_94 omitted because of collinearity
+note: reg4_94 omitted because of collinearity
+note: reg5_94 omitted because of collinearity
+note: reg1_98 omitted because of collinearity
+note: reg2_98 omitted because of collinearity
+note: reg3_98 omitted because of collinearity
+note: reg4_98 omitted because of collinearity
+note: reg5_98 omitted because of collinearity
+note: reg1_02 omitted because of collinearity
+note: reg2_02 omitted because of collinearity
+note: reg3_02 omitted because of collinearity
+note: reg4_02 omitted because of collinearity
+note: reg5_02 omitted because of collinearity
+
+      Source |       SS           df       MS      Number of obs   =        27
+-------------+----------------------------------   F(4, 22)        =      0.93
+       Model |  .256112023         4  .064028006   Prob > F        =    0.4643
+    Residual |  1.51353314        22  .068796961   R-squared       =    0.1447
+-------------+----------------------------------   Adj R-squared   =   -0.0108
+       Total |  1.76964516        26  .068063275   Root MSE        =    .26229
+
+------------------------------------------------------------------------------
+   D.inst02e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        reg1 |    .101025   .2003286     0.50   0.619    -.3144312    .5164811
+        reg2 |  -.0349218   .1748612    -0.20   0.844    -.3975617     .327718
+        reg3 |   .1125651   .1809985     0.62   0.540    -.2628028     .487933
+        reg4 |   .2473565   .2003286     1.23   0.230    -.1680997    .6628126
+        reg5 |          0  (omitted)
+     reg1_94 |          0  (omitted)
+     reg2_94 |          0  (omitted)
+     reg3_94 |          0  (omitted)
+     reg4_94 |          0  (omitted)
+     reg5_94 |          0  (omitted)
+     reg1_98 |          0  (omitted)
+     reg2_98 |          0  (omitted)
+     reg3_98 |          0  (omitted)
+     reg4_98 |          0  (omitted)
+     reg5_98 |          0  (omitted)
+     reg1_02 |          0  (omitted)
+     reg2_02 |          0  (omitted)
+     reg3_02 |          0  (omitted)
+     reg4_02 |          0  (omitted)
+     reg5_02 |          0  (omitted)
+       _cons |   .4492893   .1514342     2.97   0.007      .135234    .7633446
+------------------------------------------------------------------------------
+
+.   predict inst02e_ort, resid  
+(27 missing values generated)
+
+. quietly reg inst_g reg* if year<=2002 & year>=1998 
+
+.   predict inst_g_ort, resid  
+(27 missing values generated)
+
+.   
+. reg d.util_rate reg* if year<=2002 & year>=1998 
+note: reg1 omitted because of collinearity
+note: reg1_94 omitted because of collinearity
+note: reg2_94 omitted because of collinearity
+note: reg3_94 omitted because of collinearity
+note: reg4_94 omitted because of collinearity
+note: reg5_94 omitted because of collinearity
+note: reg1_98 omitted because of collinearity
+note: reg2_02 omitted because of collinearity
+note: reg3_02 omitted because of collinearity
+note: reg4_02 omitted because of collinearity
+note: reg5_02 omitted because of collinearity
+
+      Source |       SS           df       MS      Number of obs   =        54
+-------------+----------------------------------   F(9, 44)        =      6.02
+       Model |  .077718153         9   .00863535   Prob > F        =    0.0000
+    Residual |  .063108203        44  .001434277   R-squared       =    0.5519
+-------------+----------------------------------   Adj R-squared   =    0.4602
+       Total |  .140826356        53  .002657101   Root MSE        =    .03787
+
+------------------------------------------------------------------------------
+ D.util_rate |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        reg1 |          0  (omitted)
+        reg2 |  -.0262768   .0227582    -1.15   0.254    -.0721428    .0195893
+        reg3 |  -.0841627   .0237374    -3.55   0.001    -.1320024   -.0363231
+        reg4 |  -.0544021   .0267794    -2.03   0.048    -.1083725   -.0004316
+        reg5 |  -.0499657   .0289251    -1.73   0.091    -.1082604     .008329
+     reg1_94 |          0  (omitted)
+     reg2_94 |          0  (omitted)
+     reg3_94 |          0  (omitted)
+     reg4_94 |          0  (omitted)
+     reg5_94 |          0  (omitted)
+     reg1_98 |          0  (omitted)
+     reg2_98 |   .0384641    .017853     2.15   0.037     .0024839    .0744444
+     reg3_98 |   .0689191   .0202434     3.40   0.001     .0281213    .1097169
+     reg4_98 |   .1106206   .0267794     4.13   0.000     .0566501     .164591
+     reg5_98 |   .0593494   .0309222     1.92   0.061    -.0029703    .1216691
+     reg1_02 |  -.0527643   .0267794    -1.97   0.055    -.1067347    .0012062
+     reg2_02 |          0  (omitted)
+     reg3_02 |          0  (omitted)
+     reg4_02 |          0  (omitted)
+     reg5_02 |          0  (omitted)
+       _cons |   .1406956   .0189359     7.43   0.000     .1025327    .1788584
+------------------------------------------------------------------------------
+
+.   predict d_ag_util_rate_ort, resid
+(27 missing values generated)
+
+. reg d.ag_ssaude reg* if year<=2002 & year>=1998 
+note: reg1 omitted because of collinearity
+note: reg1_94 omitted because of collinearity
+note: reg2_94 omitted because of collinearity
+note: reg3_94 omitted because of collinearity
+note: reg4_94 omitted because of collinearity
+note: reg5_94 omitted because of collinearity
+note: reg1_98 omitted because of collinearity
+note: reg2_02 omitted because of collinearity
+note: reg3_02 omitted because of collinearity
+note: reg4_02 omitted because of collinearity
+note: reg5_02 omitted because of collinearity
+
+      Source |       SS           df       MS      Number of obs   =        54
+-------------+----------------------------------   F(9, 44)        =      1.01
+       Model |  .004237312         9  .000470812   Prob > F        =    0.4446
+    Residual |  .020450343        44  .000464781   R-squared       =    0.1716
+-------------+----------------------------------   Adj R-squared   =    0.0022
+       Total |  .024687656        53  .000465805   Root MSE        =    .02156
+
+------------------------------------------------------------------------------
+ D.ag_ssaude |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        reg1 |          0  (omitted)
+        reg2 |   .0090324   .0129552     0.70   0.489    -.0170771    .0351419
+        reg3 |   .0094437   .0135127     0.70   0.488    -.0177893    .0366767
+        reg4 |   .0028481   .0152444     0.19   0.853    -.0278749     .033571
+        reg5 |   .0102276   .0164658     0.62   0.538     -.022957    .0434122
+     reg1_94 |          0  (omitted)
+     reg2_94 |          0  (omitted)
+     reg3_94 |          0  (omitted)
+     reg4_94 |          0  (omitted)
+     reg5_94 |          0  (omitted)
+     reg1_98 |          0  (omitted)
+     reg2_98 |  -.0118437   .0101629    -1.17   0.250    -.0323257    .0086383
+     reg3_98 |  -.0259667   .0115236    -2.25   0.029    -.0491911   -.0027423
+     reg4_98 |  -.0137886   .0152444    -0.90   0.371    -.0445116    .0169343
+     reg5_98 |   -.010645   .0176027    -0.60   0.548    -.0461208    .0248309
+     reg1_02 |   .0044561   .0152444     0.29   0.771    -.0262668    .0351791
+     reg2_02 |          0  (omitted)
+     reg3_02 |          0  (omitted)
+     reg4_02 |          0  (omitted)
+     reg5_02 |          0  (omitted)
+       _cons |   .0212923   .0107794     1.98   0.055    -.0004321    .0430167
+------------------------------------------------------------------------------
+
+.   predict d_ag_ssaude_ort, resid  
+(27 missing values generated)
+
+. 
+. quietly reg d.ag_lb_ined d.ag_lb_ined_cover reg* if year<=2002 & year>=1998 
+
+.   predict d_ag_lb_ined_ort, resid  
+(27 missing values generated)
+
+. quietly reg d.ag_vis7_ined2 d.ag_vis_ined_cover  reg* if year<=2002 & year>=1998 
+
+.   predict d_ag_vis7_ined_ort, resid
+(27 missing values generated)
+
+. 
+. quietly reg d.ag_lb_ined d.ag_lb_ined_cover reg* if year==1998 
+
+.   predict d_ag_lb_ined_ort1, resid 
+(27 missing values generated)
+
+. quietly reg d.ag_lb_ined d.ag_lb_ined_cover reg* if year==2002 
+
+.   predict d_ag_lb_ined_ort2, resid 
+(27 missing values generated)
+
+. quietly reg d.ag_lb_ined d.ag_lb_ined_cover reg*  if year<=2002 & year>=1998 
+
+.   predict d_ag_lb_ined_ort3, resid  
+(27 missing values generated)
+
+.   
+. quietly reg d.inst98e d.ag_lb_ined_cover reg* if year==1998 
+
+.   predict inst98e_ort2, resid 
+(27 missing values generated)
+
+. quietly reg d.inst02e d.ag_lb_ined_cover reg* if year==2002 
+
+.   predict inst02e_ort2, resid 
+(27 missing values generated)
+
+. quietly reg inst_g d.ag_lb_ined_cover reg*  if year<=2002 & year>=1998 
+
+.   predict inst_g_ort2, resid  
+(27 missing values generated)
+
+. 
+. quietly reg d.inst98e d.ag_vis_ined_cover reg* if year==1998 
+
+.   predict inst98e_ort3, resid 
+(27 missing values generated)
+
+. quietly reg d.inst02e d.ag_vis_ined_cover reg* if year==2002 
+
+.   predict inst02e_ort3, resid 
+(27 missing values generated)
+
+. quietly reg inst_g d.ag_vis_ined_cover reg*  if year<=2002 & year>=1998 
+
+.   predict inst_g_ort3, resid   
+(27 missing values generated)
+
+.   
+. quietly reg d.ag_vis7_ined2 d.ag_vis_ined_cover reg* if year==1998 
+
+.   predict d_ag_vis7_ined_ort1, resid
+(27 missing values generated)
+
+. quietly reg d.ag_vis7_ined2 d.ag_vis_ined_cover reg* if year==2002 
+
+.   predict d_ag_vis7_ined_ort2, resid
+(27 missing values generated)
+
+. quietly reg d.ag_vis7_ined2 d.ag_vis_ined_cover reg*  if year<=2002 & year>=1998 
+
+.   predict d_ag_vis7_ined_ort3, resid
+(27 missing values generated)
+
+.   
+. 
+end of do-file
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. #delimit ;
+delimiter now ;
+. local y d_ag_util_rate_ort;
+
+. local rangex "-.4 .6";
+
+. local rangey "-0.05 .12";
+
+. twoway scatter `y' inst98e_ort if year==1998 ,  ms()  ||
+> lfit `y' inst98e_ort if year==1998 ,
+> saving(util1, replace) ysc(r(`rangey')) xsc(r(`rangex')) aspectratio()
+> l2title("Change in Valid Votes/Turnout, 94-98", size(medium)) l1title("(Residuals)", size(medium))
+> xtitle("% of Voters Above Cutoff (Residuals)", size(medium))
+> leg(off)  xlab(,labs(medium)) ylab(,labs(medium))
+> title("Panel A: Paper (1994) to Discont. (1998) ", size(medium));
+(note: file util1.gph not found)
+(file util1.gph saved)
+
+. #delimit cr
+delimiter now cr
+. 
+end of do-file
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. #delimit ;
+delimiter now ;
+. local y d_ag_util_rate_ort;
+
+. local rangex "-.4 .6";
+
+. local rangey "-0.1 .07";
+
+. twoway scatter `y' inst02e_ort if year==2002 ,  ms()  ||
+> lfit `y' inst02e_ort if year==2002 ,
+> saving(util2, replace) ysc(r(`rangey')) xsc(r(`rangex')) aspectratio()
+> l2title("Change in Valid Votes/Turnout, 98-02", size(medium)) l1title("(Residuals)", size(medium))
+> xtitle("% of Voters Above Cutoff (Residuals)", size(medium))
+> leg(off)  xlab(,labs(medium)) ylab(,labs(medium))
+> title("Panel B: Discont. (1998) to Electr. (2002) ", size(medium));
+(note: file util2.gph not found)
+(file util2.gph saved)
+
+. #delimit cr
+delimiter now cr
+. 
+end of do-file
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. #delimit ;
+delimiter now ;
+. local y d_ag_util_rate_ort;
+
+. local rangex "-.4 .6";
+
+. local rangey "-0.05 .12";
+
+. twoway scatter `y' inst_g_ort if year<=2002 & year>=1998 ,  ms()  ||
+> lfit `y' inst_g_ort if year<=2002 & year>=1998 ,
+> saving(util3, replace) ysc(r(`rangey')) xsc(r(`rangex')) aspectratio()
+> l2title("Change in Valid Votes/Turnout", size(medium)) l1title("(Residuals)", size(medium))
+> xtitle("Change in Use of Electronic Voting (Residuals)", size(medium))
+> leg(off)  xlab(,labs(medium)) ylab(,labs(medium))
+> title("Panel C: Pooled 1994 - 2002 ", size(medium));
+(note: file util3.gph not found)
+(file util3.gph saved)
+
+. #delimit cr
+delimiter now cr
+. 
+end of do-file
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. *******1998*************
+. #delimit ;
+delimiter now ;
+. local y d_ag_ssaude_ort;
+
+. local rangex "-.4 .6";
+
+. local rangey "-0.05 .05";
+
+. twoway scatter `y' inst98e_ort if year==1998 ,  ms()  ||
+> lfit `y' inst98e_ort if year==1998 ,
+> saving(`y'1, replace) ysc(r(`rangey')) xsc(r(`rangex')) aspectratio()
+> l2title("Change in Spending Share in Health, 94-98", size(medium)) l1title("(Residuals)", size(medium))
+> xtitle("% of Voters Above Cutoff (Residuals)", size(medium))
+> leg(off)  xlab(,labs(medium)) ylab(,labs(medium))
+> title("Panel A: Paper (1994) to Discont. (1998) ", size(medium));
+(note: file d_ag_ssaude_ort1.gph not found)
+(file d_ag_ssaude_ort1.gph saved)
+
+. #delimit cr
+delimiter now cr
+. 
+end of do-file
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. #delimit ;
+delimiter now ;
+. local y d_ag_ssaude_ort;
+
+. local rangex "-.4 .6";
+
+. local rangey "-0.05 .05";
+
+. twoway scatter `y' inst02e_ort if year==2002 ,  ms()  ||
+> lfit `y' inst02e_ort if year==2002 ,
+> saving(`y'2, replace) ysc(r(`rangey')) xsc(r(`rangex')) aspectratio()
+> l2title("Change in Spending Share in Health, 98-02", size(medium)) l1title("(Residuals)", size(medium))
+> xtitle("% of Voters Above Cutoff (Residuals)", size(medium))
+> leg(off)  xlab(,labs(medium)) ylab(,labs(medium))
+> title("Panel B: Discont. (1998) to Electr. (2002) ", size(medium));
+(note: file d_ag_ssaude_ort2.gph not found)
+(file d_ag_ssaude_ort2.gph saved)
+
+. #delimit cr
+delimiter now cr
+. 
+end of do-file
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. #delimit ;
+delimiter now ;
+. local y d_ag_ssaude_ort;
+
+. local rangex "-.4 .6";
+
+. local rangey "-0.05 .05";
+
+. twoway scatter `y' inst_g_ort if year<=2002 & year>=1998 ,  ms()  ||
+> lfit `y' inst_g_ort if year<=2002 & year>=1998 ,
+> saving(`y'3, replace) ysc(r(`rangey')) xsc(r(`rangex')) aspectratio()
+> l2title("Change in Spending Share in Health, 94-98", size(medium)) l1title("(Residuals)", size(medium))
+> xtitle("Change in Use of Electronic Voting (Residuals)", size(medium))
+> leg(off)  xlab(,labs(medium)) ylab(,labs(medium))
+> title("Panel C: Pooled 1994 - 2002 ", size(medium));
+(note: file d_ag_ssaude_ort3.gph not found)
+(file d_ag_ssaude_ort3.gph saved)
+
+. #delimit cr
+delimiter now cr
+. 
+end of do-file
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. #delimit ;
+delimiter now ;
+. local y d_ag_lb_ined_ort;
+
+. local rangex "-.4 .6";
+
+. local rangey "-0.01 .01";
+
+. twoway scatter `y' inst98e_ort2 if year==1998 ,  ms()  ||
+> lfit `y'1 inst98e_ort2 if year==1998 ,
+> saving(`y'1, replace) ysc(r(`rangey')) xsc(r(`rangex')) aspectratio()
+> l2title("Share of Low-Weight Births, 94-98", size(medium)) l1title("(Residuals)", size(medium))
+> xtitle("% of Voters Above Cutoff (Residuals)", size(medium))
+> leg(off)  xlab(,labs(medium)) ylab(,labs(medium))
+> title("Panel A: Paper (1994) to Discont. (1998) ", size(medium));
+(note: file d_ag_lb_ined_ort1.gph not found)
+(file d_ag_lb_ined_ort1.gph saved)
+
+. #delimit cr
+delimiter now cr
+. ******2002**********
+. #delimit ;
+delimiter now ;
+. local y d_ag_lb_ined_ort;
+
+. local rangex "-.4 .6";
+
+. local rangey "-0.01 .01";
+
+. twoway scatter `y' inst02e_ort2 if year==2002 ,  ms()  ||
+> lfit `y'2 inst02e_ort2 if year==2002 ,
+> saving(`y'2, replace) ysc(r(`rangey')) xsc(r(`rangex')) aspectratio()
+> l2title("Share of Low-Weight Births, 98-02", size(medium)) l1title("(Residuals)", size(medium))
+> xtitle("% of Voters Above Cutoff (Residuals)", size(medium))
+> leg(off)  xlab(,labs(medium)) ylab(,labs(medium))
+> title("Panel B: Discont. (1998) to Electr. (2002) ", size(medium));
+(note: file d_ag_lb_ined_ort2.gph not found)
+(file d_ag_lb_ined_ort2.gph saved)
+
+. #delimit cr
+delimiter now cr
+. ******************
+. ******Pooled************
+. #delimit ;
+delimiter now ;
+. local y d_ag_lb_ined_ort;
+
+. local rangex "-.4 .6";
+
+. local rangey "-0.01 .01";
+
+. twoway scatter `y' inst_g_ort2 if year<=2002 & year>=1998 ,  ms()  ||
+> lfit `y'3 inst_g_ort2 if year<=2002 & year>=1998 ,
+> saving(`y'3, replace) ysc(r(`rangey')) xsc(r(`rangex')) aspectratio()
+> l2title("Share of Low-Weight Births", size(medium)) l1title("(Residuals)", size(medium))
+> xtitle("Change in Use of Electronic Voting (Residuals)", size(medium)) 
+> leg(off)  xlab(,labs(medium)) ylab(,labs(medium))
+> title("Panel C: Pooled 1994 - 2002 ", size(medium));
+(note: file d_ag_lb_ined_ort3.gph not found)
+(file d_ag_lb_ined_ort3.gph saved)
+
+. #delimit cr
+delimiter now cr
+. ******************
+. 
+. *******1998*************
+. #delimit ;
+delimiter now ;
+. local y d_ag_vis7_ined_ort;
+
+. local rangex "-.4 .6";
+
+. local rangey "-0.1 .015";
+
+. twoway scatter `y' inst98e_ort3 if year==1998 ,  ms()  ||
+> lfit `y'1 inst98e_ort3 if year==1998 ,
+> saving(`y'1, replace) ysc(r(`rangey')) xsc(r(`rangex')) aspectratio()
+> l2title("Share with 7+ Prenatal Visits, 94-98", size(medium)) l1title("(Residuals)", size(medium))
+> xtitle("% of Voters Above Cutoff (Residuals)", size(medium))
+> leg(off)  xlab(,labs(medium)) ylab(,labs(medium))
+> title("Panel A: Paper (1994) to Discont. (1998) ", size(medium));
+(note: file d_ag_vis7_ined_ort1.gph not found)
+(file d_ag_vis7_ined_ort1.gph saved)
+
+. #delimit cr
+delimiter now cr
+. ******2002**********
+. #delimit ;
+delimiter now ;
+. local y d_ag_vis7_ined_ort;
+
+. local rangex "-.4 .6";
+
+. local rangey "-0.1 .15";
+
+. twoway scatter `y' inst02e_ort3 if year==2002 ,  ms()  ||
+> lfit `y'2 inst02e_ort3 if year==2002 ,
+> saving(`y'2, replace) ysc(r(`rangey')) xsc(r(`rangex')) aspectratio()
+> l2title("Share with 7+ Prenatal Visits, 98-02", size(medium)) l1title("(Residuals)", size(medium))
+> xtitle("% of Voters Above Cutoff (Residuals)", size(medium))
+> leg(off)  xlab(,labs(medium)) ylab(,labs(medium))
+> title("Panel B: Discont. (1998) to Electr. (2002) ", size(medium));
+(note: file d_ag_vis7_ined_ort2.gph not found)
+(file d_ag_vis7_ined_ort2.gph saved)
+
+. #delimit cr
+delimiter now cr
+. ******************
+. ******Pooled************
+. #delimit ;
+delimiter now ;
+. local y d_ag_vis7_ined_ort;
+
+. local rangex "-.4 .6";
+
+. local rangey "-0.1 .15";
+
+. twoway scatter `y' inst_g_ort3 if year<=2002 & year>=1998 ,  ms()  ||
+> lfit `y'3 inst_g_ort3 if year<=2002 & year>=1998 ,
+> saving(`y'3, replace) ysc(r(`rangey')) xsc(r(`rangex')) aspectratio()
+> l2title("Share with 7+ Prenatal Visits", size(medium))
+> xtitle("% of Voters Above Cutoff (Residuals)", size(medium)) l1title("(Residuals)", size(medium))
+> leg(off)  xlab(,labs(medium)) ylab(,labs(medium))
+> title("Panel C: Pooled 1994 - 2002 ", size(medium));
+(note: file d_ag_vis7_ined_ort3.gph not found)
+(file d_ag_vis7_ined_ort3.gph saved)
+
+. #delimit cr
+delimiter now cr
+. ******************
+. 
+. #delimit ;
+delimiter now ;
+. graph combine 
+> util1.gph util2.gph util3.gph 
+> d_ag_ssaude_ort1.gph d_ag_ssaude_ort2.gph d_ag_ssaude_ort3.gph
+> , cols(3) rows(2)  altshrink saving(graph1, replace);
+(note: file graph1.gph not found)
+(file graph1.gph saved)
+
+. graph2tex, epsfile(seesaw1);
+% exported graph to seesaw1.eps
+\begin{figure}[h]
+\begin{centering}
+  \includegraphics[height=3in]{seesaw1}
+\end{centering}
+\end{figure}
+
+. #delimit ;
+delimiter now ;
+. graph combine 
+> d_ag_vis7_ined_ort1.gph d_ag_vis7_ined_ort2.gph d_ag_vis7_ined_ort3.gph
+> d_ag_lb_ined_ort1.gph d_ag_lb_ined_ort2.gph d_ag_lb_ined_ort3.gph
+> , cols(3) rows(2) altshrink saving(graph2, replace);
+(note: file graph2.gph not found)
+(file graph2.gph saved)
+
+. graph2tex, epsfile(seesaw2);
+% exported graph to seesaw2.eps
+\begin{figure}[h]
+\begin{centering}
+  \includegraphics[height=3in]{seesaw2}
+\end{centering}
+\end{figure}
+
+. 
+end of do-file
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. clear all
+
+. set more off
+
+. cd "\\sbsb2\DISOC_RIO\BMT\RAIS\pisos\Projeto_Pisos2022\Replication_Fujiwara2015\Dados"
+\\sbsb2\DISOC_RIO\BMT\RAIS\pisos\Projeto_Pisos2022\Replication_Fujiwara2015\Dados
+
+. use state.dta, clear
+
+. 
+. encode uf, gen(cuf)
+
+. 
+. *Sets folder where all logs will be
+. cd "\\sbsb2\DISOC_RIO\BMT\RAIS\pisos\Projeto_Pisos2022\Replication_Fujiwara2015\logs"
+\\sbsb2\DISOC_RIO\BMT\RAIS\pisos\Projeto_Pisos2022\Replication_Fujiwara2015\logs
+
+.  log using leaveout.log, replace
+log file already open
+r(604);
+
+end of do-file
+
+r(604);
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+.  local y util_rate
+
+.  local x 
+
+.   forvalues cuf=1(1)27 {
+  2.          qui reg inst delec* reg* duf* `x' if  cuf~=`cuf'
+  3.          predict z , resid
+  4.          qui reg `y' reg* delec* duf* `x' if  cuf~=`cuf'
+  5.          predict y, resid
+  6.          *reg y z if  cuf~=`cuf', cl(uf)
+.          cgmwildboot y z if cuf~=`cuf' , cl(uf) bootcluster(uf) seed(1000) reps(1000) 
+  7.         drop y z 
+  8.  }
+command cgmwildboot is unrecognized
+r(199);
+
+end of do-file
+
+r(199);
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. clear
+
+. set mem 50m
+set memory ignored.
+    Memory no longer needs to be set in modern Statas; memory adjustments are performed on the fly automatically.
+
+. set more off
+
+. cd "\\sbsb2\DISOC_RIO\BMT\RAIS\pisos\Projeto_Pisos2022\Replication_Fujiwara2015\Dados"
+\\sbsb2\DISOC_RIO\BMT\RAIS\pisos\Projeto_Pisos2022\Replication_Fujiwara2015\Dados
+
+. use yearly.dta
+
+. 
+. *Sets folder where all logs will be
+. cd "\\sbsb2\DISOC_RIO\BMT\RAIS\pisos\Projeto_Pisos2022\Replication_Fujiwara2015\logs"
+\\sbsb2\DISOC_RIO\BMT\RAIS\pisos\Projeto_Pisos2022\Replication_Fujiwara2015\logs
+
+. 
+end of do-file
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. areg ssaude inst1996-inst2006 reg* if year_f>1994 & year_f<2007, rob a(uf)
+note: reg1 omitted because of collinearity
+note: reg2 omitted because of collinearity
+note: reg3 omitted because of collinearity
+note: reg4 omitted because of collinearity
+note: reg5 omitted because of collinearity
+note: reg1_02 omitted because of collinearity
+note: reg2_02 omitted because of collinearity
+note: reg3_02 omitted because of collinearity
+note: reg4_02 omitted because of collinearity
+note: reg5_02 omitted because of collinearity
+
+Linear regression, absorbing indicators         Number of obs     =        324
+                                                F(  21,    276)   =      20.04
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.7394
+                                                Adj R-squared     =     0.6950
+                                                Root MSE          =     0.0230
+
+------------------------------------------------------------------------------
+             |               Robust
+      ssaude |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    inst1996 |  -.0127779   .0126746    -1.01   0.314    -.0377291    .0121734
+    inst1997 |  -.0064584   .0154409    -0.42   0.676    -.0368554    .0239386
+    inst1998 |  -.0113231   .0121509    -0.93   0.352    -.0352434    .0125972
+    inst1999 |   .0146553    .021901     0.67   0.504     -.028459    .0577695
+    inst2000 |   .0155051   .0205049     0.76   0.450    -.0248607     .055871
+    inst2001 |   .0432355   .0193825     2.23   0.027     .0050792    .0813917
+    inst2002 |   .0532131   .0198293     2.68   0.008     .0141774    .0922489
+    inst2003 |   -.014409   .0184195    -0.78   0.435    -.0506695    .0218516
+    inst2004 |    .000537   .0178622     0.03   0.976    -.0346265    .0357004
+    inst2005 |   .0081406   .0192546     0.42   0.673    -.0297638    .0460451
+    inst2006 |   .0149407   .0179107     0.83   0.405    -.0203181    .0501996
+        reg1 |          0  (omitted)
+        reg2 |          0  (omitted)
+        reg3 |          0  (omitted)
+        reg4 |          0  (omitted)
+        reg5 |          0  (omitted)
+     reg1_94 |  -.0415694   .0091864    -4.53   0.000    -.0596537   -.0234851
+     reg2_94 |   -.044686   .0074773    -5.98   0.000    -.0594058   -.0299663
+     reg3_94 |  -.0299192   .0104438    -2.86   0.004    -.0504789   -.0093596
+     reg4_94 |   -.027566   .0139892    -1.97   0.050    -.0551051   -.0000268
+     reg5_94 |  -.0479279   .0078265    -6.12   0.000    -.0633352   -.0325206
+     reg1_98 |  -.0419001   .0089956    -4.66   0.000    -.0596088   -.0241914
+     reg2_98 |  -.0424864   .0080275    -5.29   0.000    -.0582892   -.0266835
+     reg3_98 |  -.0472264   .0109348    -4.32   0.000    -.0687526   -.0257002
+     reg4_98 |  -.0445869   .0121698    -3.66   0.000    -.0685443   -.0206294
+     reg5_98 |  -.0447065   .0081643    -5.48   0.000    -.0607787   -.0286342
+     reg1_02 |          0  (omitted)
+     reg2_02 |          0  (omitted)
+     reg3_02 |          0  (omitted)
+     reg4_02 |          0  (omitted)
+     reg5_02 |          0  (omitted)
+       _cons |   .1220773   .0090487    13.49   0.000      .104264    .1398906
+-------------+----------------------------------------------------------------
+          uf |   absorbed                                      (27 categories)
+
+.  gen te_s = 0 if year_f==1995
+(297 missing values generated)
+
+. 
+end of do-file
+
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+.  forvalues i = 1996(1)2006 {
+  2.   replace te_s = _b[inst`i'] if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+. areg ssaude inst1997b-inst2005b reg* if year_f>1994 & year_f<2007, rob a(uf)
+note: reg1 omitted because of collinearity
+note: reg2 omitted because of collinearity
+note: reg3 omitted because of collinearity
+note: reg4 omitted because of collinearity
+note: reg5 omitted because of collinearity
+note: reg1_02 omitted because of collinearity
+note: reg2_02 omitted because of collinearity
+note: reg3_02 omitted because of collinearity
+note: reg4_02 omitted because of collinearity
+note: reg5_02 omitted because of collinearity
+
+Linear regression, absorbing indicators         Number of obs     =        324
+                                                F(  15,    282)   =      26.08
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.7349
+                                                Adj R-squared     =     0.6963
+                                                Root MSE          =     0.0229
+
+------------------------------------------------------------------------------
+             |               Robust
+      ssaude |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   inst1997b |  -.0025018   .0090632    -0.28   0.783     -.020342    .0153383
+   inst1999b |   .0214691   .0179774     1.19   0.233    -.0139177     .056856
+   inst2001b |   .0546132   .0168375     3.24   0.001     .0214702    .0877563
+   inst2003b |  -.0005471   .0154036    -0.04   0.972    -.0308677    .0297736
+   inst2005b |   .0179296    .015636     1.15   0.252    -.0128485    .0487078
+        reg1 |          0  (omitted)
+        reg2 |          0  (omitted)
+        reg3 |          0  (omitted)
+        reg4 |          0  (omitted)
+        reg5 |          0  (omitted)
+     reg1_94 |  -.0415694   .0091833    -4.53   0.000    -.0596459   -.0234929
+     reg2_94 |   -.044686   .0074561    -5.99   0.000    -.0593627   -.0300094
+     reg3_94 |  -.0299192   .0104272    -2.87   0.004    -.0504442   -.0093943
+     reg4_94 |   -.027566    .014048    -1.96   0.051    -.0552181    .0000862
+     reg5_94 |  -.0479279    .007912    -6.06   0.000    -.0635019   -.0323538
+     reg1_98 |  -.0419001   .0090014    -4.65   0.000    -.0596185   -.0241817
+     reg2_98 |  -.0424864   .0079932    -5.32   0.000    -.0582202   -.0267525
+     reg3_98 |  -.0472264     .01088    -4.34   0.000    -.0686426   -.0258101
+     reg4_98 |  -.0445869   .0120733    -3.69   0.000    -.0683521   -.0208216
+     reg5_98 |  -.0447065   .0082351    -5.43   0.000    -.0609166   -.0284963
+     reg1_02 |          0  (omitted)
+     reg2_02 |          0  (omitted)
+     reg3_02 |          0  (omitted)
+     reg4_02 |          0  (omitted)
+     reg5_02 |          0  (omitted)
+       _cons |    .118765   .0079324    14.97   0.000     .1031507    .1343793
+-------------+----------------------------------------------------------------
+          uf |   absorbed                                      (27 categories)
+
+.  gen teb_s = 0 if year_f==1995
+(297 missing values generated)
+
+.  forvalues i = 1997(2)2005 {
+  2.   replace teb_s = _b[inst`i'b] if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+.  forvalues i = 1996(2)2006 {
+  2.   replace teb_s = l.teb_s if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+.  areg ssaude inst1999e inst2003e reg* if year_f>1994 & year_f<2007, rob a(uf)
+note: reg1 omitted because of collinearity
+note: reg2 omitted because of collinearity
+note: reg3 omitted because of collinearity
+note: reg4 omitted because of collinearity
+note: reg5 omitted because of collinearity
+note: reg1_02 omitted because of collinearity
+note: reg2_02 omitted because of collinearity
+note: reg3_02 omitted because of collinearity
+note: reg4_02 omitted because of collinearity
+note: reg5_02 omitted because of collinearity
+
+Linear regression, absorbing indicators         Number of obs     =        324
+                                                F(  12,    285)   =      28.54
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.7115
+                                                Adj R-squared     =     0.6731
+                                                Root MSE          =     0.0238
+
+------------------------------------------------------------------------------
+             |               Robust
+      ssaude |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   inst1999e |   .0392921    .015365     2.56   0.011     .0090488    .0695354
+   inst2003e |   .0099422    .015238     0.65   0.515    -.0200511    .0399355
+        reg1 |          0  (omitted)
+        reg2 |          0  (omitted)
+        reg3 |          0  (omitted)
+        reg4 |          0  (omitted)
+        reg5 |          0  (omitted)
+     reg1_94 |  -.0415694   .0094683    -4.39   0.000    -.0602061   -.0229328
+     reg2_94 |   -.044686   .0075038    -5.96   0.000    -.0594559   -.0299161
+     reg3_94 |  -.0299192   .0106556    -2.81   0.005    -.0508929   -.0089456
+     reg4_94 |   -.027566   .0141985    -1.94   0.053    -.0555132    .0003813
+     reg5_94 |  -.0479279   .0082114    -5.84   0.000    -.0640905   -.0317653
+     reg1_98 |  -.0419001   .0093427    -4.48   0.000    -.0602895   -.0235107
+     reg2_98 |  -.0424864   .0083312    -5.10   0.000    -.0588849   -.0260878
+     reg3_98 |  -.0472264   .0107909    -4.38   0.000    -.0684663   -.0259865
+     reg4_98 |  -.0445869     .01167    -3.82   0.000    -.0675573   -.0216165
+     reg5_98 |  -.0447065   .0087003    -5.14   0.000    -.0618315   -.0275814
+     reg1_02 |          0  (omitted)
+     reg2_02 |          0  (omitted)
+     reg3_02 |          0  (omitted)
+     reg4_02 |          0  (omitted)
+     reg5_02 |          0  (omitted)
+       _cons |   .1181165   .0080033    14.76   0.000     .1023634    .1338696
+-------------+----------------------------------------------------------------
+          uf |   absorbed                                      (27 categories)
+
+.  gen teq_s = 0 if year_f==1995
+(297 missing values generated)
+
+.  forvalues i = 1999(4)2003 {
+  2.   replace teq_s = _b[inst`i'e] if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+
+.  forvalues i = 1996(4)2004 {
+  2.   replace teq_s = l.teq_s if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+.  forvalues i = 1997(4)2005 {
+  2.   replace teq_s = l.teq_s if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+.  forvalues i = 1998(4)2006 {
+  2.   replace teq_s = l.teq_s if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+. 
+.  
+.  tsset cuf year_f
+       panel variable:  cuf (strongly balanced)
+        time variable:  year_fiscal, 1995 to 2006
+                delta:  1 unit
+
+. areg vis7_ined2 inst1996-inst2006 reg* ag_vis_ined_cover if year_f>1994 & year_f<2007, rob a(uf)
+note: reg1 omitted because of collinearity
+note: reg2 omitted because of collinearity
+note: reg3 omitted because of collinearity
+note: reg4 omitted because of collinearity
+note: reg5 omitted because of collinearity
+note: reg1_02 omitted because of collinearity
+note: reg2_02 omitted because of collinearity
+note: reg3_02 omitted because of collinearity
+note: reg4_02 omitted because of collinearity
+note: reg5_02 omitted because of collinearity
+
+Linear regression, absorbing indicators         Number of obs     =        324
+                                                F(  22,    275)   =       9.69
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.8371
+                                                Adj R-squared     =     0.8086
+                                                Root MSE          =     0.0569
+
+-----------------------------------------------------------------------------------
+                  |               Robust
+       vis7_ined2 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+------------------+----------------------------------------------------------------
+         inst1996 |   .0403474   .0404977     1.00   0.320    -.0393775    .1200724
+         inst1997 |    .033399   .0363513     0.92   0.359    -.0381632    .1049612
+         inst1998 |   .0429799   .0323952     1.33   0.186    -.0207941    .1067539
+         inst1999 |   .1391529   .0757775     1.84   0.067    -.0100248    .2883306
+         inst2000 |   .1339985   .0519389     2.58   0.010     .0317501     .236247
+         inst2001 |   .1575199   .0522419     3.02   0.003      .054675    .2603649
+         inst2002 |   .1691678   .0529639     3.19   0.002     .0649017     .273434
+         inst2003 |   .1094097   .0506553     2.16   0.032     .0096882    .2091311
+         inst2004 |   .1162094   .0495624     2.34   0.020     .0186395    .2137793
+         inst2005 |   .1371532   .0495427     2.77   0.006     .0396221    .2346843
+         inst2006 |   .1431442   .0492732     2.91   0.004     .0461435    .2401449
+             reg1 |          0  (omitted)
+             reg2 |          0  (omitted)
+             reg3 |          0  (omitted)
+             reg4 |          0  (omitted)
+             reg5 |          0  (omitted)
+          reg1_94 |   .0302264   .0365223     0.83   0.409    -.0416724    .1021252
+          reg2_94 |   .0476476   .0316837     1.50   0.134    -.0147258     .110021
+          reg3_94 |   .1446958   .0434272     3.33   0.001     .0592039    .2301878
+          reg4_94 |   .0398818   .0437282     0.91   0.363    -.0462027    .1259663
+          reg5_94 |  -.0498552   .0350941    -1.42   0.157    -.1189425     .019232
+          reg1_98 |  -.0717175   .0335644    -2.14   0.034    -.1377934   -.0056417
+          reg2_98 |  -.0225654   .0191828    -1.18   0.240    -.0603291    .0151983
+          reg3_98 |   -.028277   .0178746    -1.58   0.115    -.0634655    .0069115
+          reg4_98 |  -.0775012   .0263899    -2.94   0.004    -.1294531   -.0255494
+          reg5_98 |  -.1190387   .0208252    -5.72   0.000    -.1600358   -.0780415
+          reg1_02 |          0  (omitted)
+          reg2_02 |          0  (omitted)
+          reg3_02 |          0  (omitted)
+          reg4_02 |          0  (omitted)
+          reg5_02 |          0  (omitted)
+ag_vis_ined_cover |   .0147901   .1264521     0.12   0.907     -.234147    .2637272
+            _cons |   .2933046   .1372135     2.14   0.033     .0231823    .5634269
+------------------+----------------------------------------------------------------
+               uf |   absorbed                                      (27 categories)
+
+.  gen te_v = 0 if year_f==1995
+(297 missing values generated)
+
+.  forvalues i = 1996(1)2006 {
+  2.   replace te_v = _b[inst`i'] if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+. areg vis7_ined2 inst1997b-inst2005b reg* ag_vis_ined_cover if year_f>1994 & year_f<2007, rob a(uf)
+note: reg1 omitted because of collinearity
+note: reg2 omitted because of collinearity
+note: reg3 omitted because of collinearity
+note: reg4 omitted because of collinearity
+note: reg5 omitted because of collinearity
+note: reg1_02 omitted because of collinearity
+note: reg2_02 omitted because of collinearity
+note: reg3_02 omitted because of collinearity
+note: reg4_02 omitted because of collinearity
+note: reg5_02 omitted because of collinearity
+
+Linear regression, absorbing indicators         Number of obs     =        324
+                                                F(  16,    281)   =      12.09
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.8355
+                                                Adj R-squared     =     0.8109
+                                                Root MSE          =     0.0566
+
+-----------------------------------------------------------------------------------
+                  |               Robust
+       vis7_ined2 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+------------------+----------------------------------------------------------------
+        inst1997b |   .0180157   .0235243     0.77   0.444    -.0282905     .064322
+        inst1999b |    .116402   .0553137     2.10   0.036     .0075201    .2252839
+        inst2001b |   .1431701   .0454922     3.15   0.002     .0536214    .2327189
+        inst2003b |   .0926358   .0425422     2.18   0.030     .0088939    .1763777
+        inst2005b |    .119975   .0416744     2.88   0.004     .0379413    .2020087
+             reg1 |          0  (omitted)
+             reg2 |          0  (omitted)
+             reg3 |          0  (omitted)
+             reg4 |          0  (omitted)
+             reg5 |          0  (omitted)
+          reg1_94 |   .0302264   .0366228     0.83   0.410    -.0418635    .1023163
+          reg2_94 |   .0476476   .0315297     1.51   0.132    -.0144168    .1097119
+          reg3_94 |   .1446958   .0435466     3.32   0.001     .0589768    .2304148
+          reg4_94 |   .0398818   .0436851     0.91   0.362    -.0461098    .1258733
+          reg5_94 |  -.0498552   .0356322    -1.40   0.163    -.1199952    .0202848
+          reg1_98 |  -.0717175   .0330505    -2.17   0.031    -.1367756   -.0066595
+          reg2_98 |  -.0225654   .0190015    -1.19   0.236    -.0599687    .0148378
+          reg3_98 |   -.028277    .017661    -1.60   0.110    -.0630417    .0064877
+          reg4_98 |  -.0775012   .0261123    -2.97   0.003    -.1289018   -.0261006
+          reg5_98 |  -.1190387   .0207273    -5.74   0.000    -.1598393   -.0782381
+          reg1_02 |          0  (omitted)
+          reg2_02 |          0  (omitted)
+          reg3_02 |          0  (omitted)
+          reg4_02 |          0  (omitted)
+          reg5_02 |          0  (omitted)
+ag_vis_ined_cover |   .0147901   .1269415     0.12   0.907     -.235087    .2646672
+            _cons |   .3037635    .135572     2.24   0.026      .036898    .5706291
+------------------+----------------------------------------------------------------
+               uf |   absorbed                                      (27 categories)
+
+.  gen teb_v = 0 if year_f==1995
+(297 missing values generated)
+
+.  forvalues i = 1997(2)2005 {
+  2.   replace teb_v = _b[inst`i'b] if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+.  forvalues i = 1996(2)2006 {
+  2.   replace teb_v = l.teb_v if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+. areg vis7_ined2 inst1999e inst2003e reg* ag_vis_ined_cover if year_f>1994 & year_f<2007, rob a(uf)
+note: reg1 omitted because of collinearity
+note: reg2 omitted because of collinearity
+note: reg3 omitted because of collinearity
+note: reg4 omitted because of collinearity
+note: reg5 omitted because of collinearity
+note: reg1_02 omitted because of collinearity
+note: reg2_02 omitted because of collinearity
+note: reg3_02 omitted because of collinearity
+note: reg4_02 omitted because of collinearity
+note: reg5_02 omitted because of collinearity
+
+Linear regression, absorbing indicators         Number of obs     =        324
+                                                F(  13,    284)   =      13.03
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.8325
+                                                Adj R-squared     =     0.8095
+                                                Root MSE          =     0.0568
+
+-----------------------------------------------------------------------------------
+                  |               Robust
+       vis7_ined2 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+------------------+----------------------------------------------------------------
+        inst1999e |   .1207782   .0459187     2.63   0.009     .0303941    .2111623
+        inst2003e |   .0972975   .0377692     2.58   0.010     .0229544    .1716407
+             reg1 |          0  (omitted)
+             reg2 |          0  (omitted)
+             reg3 |          0  (omitted)
+             reg4 |          0  (omitted)
+             reg5 |          0  (omitted)
+          reg1_94 |   .0302264   .0369463     0.82   0.414    -.0424969    .1029496
+          reg2_94 |   .0476476   .0317066     1.50   0.134    -.0147621    .1100573
+          reg3_94 |   .1446958   .0435013     3.33   0.001     .0590699    .2303218
+          reg4_94 |   .0398818   .0439046     0.91   0.364    -.0465379    .1263014
+          reg5_94 |  -.0498552   .0356447    -1.40   0.163    -.1200165     .020306
+          reg1_98 |  -.0717175   .0333835    -2.15   0.033     -.137428    -.006007
+          reg2_98 |  -.0225654   .0189627    -1.19   0.235    -.0598906    .0147598
+          reg3_98 |   -.028277   .0178822    -1.58   0.115    -.0634755    .0069215
+          reg4_98 |  -.0775012   .0265307    -2.92   0.004    -.1297229   -.0252796
+          reg5_98 |  -.1190387   .0221094    -5.38   0.000    -.1625578   -.0755196
+          reg1_02 |          0  (omitted)
+          reg2_02 |          0  (omitted)
+          reg3_02 |          0  (omitted)
+          reg4_02 |          0  (omitted)
+          reg5_02 |          0  (omitted)
+ag_vis_ined_cover |   .0147901   .1267792     0.12   0.907     -.234756    .2643362
+            _cons |   .3084336   .1343382     2.30   0.022     .0440087    .5728585
+------------------+----------------------------------------------------------------
+               uf |   absorbed                                      (27 categories)
+
+.  gen teq_v = 0 if year_f==1995
+(297 missing values generated)
+
+.  forvalues i = 1999(4)2003 {
+  2.   replace teq_v = _b[inst`i'e] if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+
+.  forvalues i = 1996(4)2004 {
+  2.   replace teq_v = l.teq_v if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+.  forvalues i = 1997(4)2005 {
+  2.   replace teq_v = l.teq_v if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+.  forvalues i = 1998(4)2006 {
+  2.   replace teq_v = l.teq_v if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+.  tsset cuf year_f
+       panel variable:  cuf (strongly balanced)
+        time variable:  year_fiscal, 1995 to 2006
+                delta:  1 unit
+
+. areg lb_ined  inst1996-inst2006 reg* ag_lb_ined_cover if year_f>1994 & year_f<2007, rob a(uf)
+note: reg1 omitted because of collinearity
+note: reg2 omitted because of collinearity
+note: reg3 omitted because of collinearity
+note: reg4 omitted because of collinearity
+note: reg5 omitted because of collinearity
+note: reg1_02 omitted because of collinearity
+note: reg2_02 omitted because of collinearity
+note: reg3_02 omitted because of collinearity
+note: reg4_02 omitted because of collinearity
+note: reg5_02 omitted because of collinearity
+
+Linear regression, absorbing indicators         Number of obs     =        324
+                                                F(  22,    275)   =       7.20
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.7927
+                                                Adj R-squared     =     0.7566
+                                                Root MSE          =     0.0060
+
+----------------------------------------------------------------------------------
+                 |               Robust
+         lb_ined |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-----------------+----------------------------------------------------------------
+        inst1996 |  -.0035588   .0031436    -1.13   0.259    -.0097474    .0026298
+        inst1997 |  -.0065436   .0029384    -2.23   0.027    -.0123282    -.000759
+        inst1998 |  -.0036499     .00292    -1.25   0.212    -.0093982    .0020984
+        inst1999 |  -.0016558   .0052832    -0.31   0.754    -.0120564    .0087448
+        inst2000 |  -.0130358   .0049741    -2.62   0.009    -.0228279   -.0032437
+        inst2001 |  -.0069663   .0050934    -1.37   0.173    -.0169933    .0030608
+        inst2002 |  -.0050542   .0048505    -1.04   0.298    -.0146031    .0044947
+        inst2003 |  -.0006066   .0036596    -0.17   0.868    -.0078111    .0065978
+        inst2004 |   .0010246   .0039648     0.26   0.796    -.0067806    .0088297
+        inst2005 |  -.0001782   .0040548    -0.04   0.965    -.0081606    .0078042
+        inst2006 |   .0010298   .0038086     0.27   0.787     -.006468    .0085275
+            reg1 |          0  (omitted)
+            reg2 |          0  (omitted)
+            reg3 |          0  (omitted)
+            reg4 |          0  (omitted)
+            reg5 |          0  (omitted)
+         reg1_94 |  -.0016957   .0018208    -0.93   0.352    -.0052801    .0018887
+         reg2_94 |  -.0000862   .0017066    -0.05   0.960    -.0034458    .0032734
+         reg3_94 |  -2.78e-06   .0014581    -0.00   0.998    -.0028732    .0028677
+         reg4_94 |   .0036256   .0024413     1.49   0.139    -.0011803    .0084316
+         reg5_94 |  -.0056923   .0015382    -3.70   0.000    -.0087203   -.0026642
+         reg1_98 |   .0037723   .0046982     0.80   0.423    -.0054766    .0130213
+         reg2_98 |  -.0027829   .0016262    -1.71   0.088    -.0059844    .0004185
+         reg3_98 |  -.0007501   .0019506    -0.38   0.701      -.00459    .0030899
+         reg4_98 |    .004135   .0039573     1.04   0.297    -.0036554    .0119255
+         reg5_98 |  -.0011745   .0023403    -0.50   0.616    -.0057818    .0034327
+         reg1_02 |          0  (omitted)
+         reg2_02 |          0  (omitted)
+         reg3_02 |          0  (omitted)
+         reg4_02 |          0  (omitted)
+         reg5_02 |          0  (omitted)
+ag_lb_ined_cover |     -.0383   .0277367    -1.38   0.168    -.0929033    .0163033
+           _cons |   .1168124   .0279259     4.18   0.000     .0618366    .1717881
+-----------------+----------------------------------------------------------------
+              uf |   absorbed                                      (27 categories)
+
+.  gen te_b = 0 if year_f==1995
+(297 missing values generated)
+
+.  forvalues i = 1996(1)2006 {
+  2.   replace te_b = _b[inst`i'] if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+. areg lb_ined  inst1997b-inst2005b reg* ag_lb_ined_cover if year_f>1994 & year_f<2007, rob a(uf)
+note: reg1 omitted because of collinearity
+note: reg2 omitted because of collinearity
+note: reg3 omitted because of collinearity
+note: reg4 omitted because of collinearity
+note: reg5 omitted because of collinearity
+note: reg1_02 omitted because of collinearity
+note: reg2_02 omitted because of collinearity
+note: reg3_02 omitted because of collinearity
+note: reg4_02 omitted because of collinearity
+note: reg5_02 omitted because of collinearity
+
+Linear regression, absorbing indicators         Number of obs     =        324
+                                                F(  16,    281)   =       8.40
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.7776
+                                                Adj R-squared     =     0.7443
+                                                Root MSE          =     0.0061
+
+----------------------------------------------------------------------------------
+                 |               Robust
+         lb_ined |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-----------------+----------------------------------------------------------------
+       inst1997b |  -.0033173   .0017473    -1.90   0.059    -.0067569    .0001222
+       inst1999b |  -.0055664   .0034599    -1.61   0.109     -.012377    .0012443
+       inst2001b |  -.0042308   .0043427    -0.97   0.331    -.0127792    .0043175
+       inst2003b |   .0019884   .0029902     0.66   0.507    -.0038976    .0078743
+       inst2005b |   .0022052   .0030341     0.73   0.468    -.0037672    .0081776
+            reg1 |          0  (omitted)
+            reg2 |          0  (omitted)
+            reg3 |          0  (omitted)
+            reg4 |          0  (omitted)
+            reg5 |          0  (omitted)
+         reg1_94 |  -.0016957   .0018223    -0.93   0.353    -.0052828    .0018913
+         reg2_94 |  -.0000862   .0017531    -0.05   0.961    -.0035371    .0033647
+         reg3_94 |  -2.78e-06   .0014305    -0.00   0.998    -.0028186     .002813
+         reg4_94 |   .0036256     .00251     1.44   0.150    -.0013151    .0085663
+         reg5_94 |  -.0056923   .0015593    -3.65   0.000    -.0087617   -.0026228
+         reg1_98 |   .0037723   .0048597     0.78   0.438    -.0057937    .0133383
+         reg2_98 |  -.0027829   .0016053    -1.73   0.084    -.0059428    .0003769
+         reg3_98 |  -.0007501    .001985    -0.38   0.706    -.0046575    .0031573
+         reg4_98 |    .004135   .0040364     1.02   0.307    -.0038104    .0120805
+         reg5_98 |  -.0011745    .002089    -0.56   0.574    -.0052866    .0029375
+         reg1_02 |          0  (omitted)
+         reg2_02 |          0  (omitted)
+         reg3_02 |          0  (omitted)
+         reg4_02 |          0  (omitted)
+         reg5_02 |          0  (omitted)
+ag_lb_ined_cover |     -.0383   .0335073    -1.14   0.254    -.1042573    .0276573
+           _cons |   .1158899   .0337167     3.44   0.001     .0495204    .1822593
+-----------------+----------------------------------------------------------------
+              uf |   absorbed                                      (27 categories)
+
+.  gen teb_b = 0 if year_f==1995
+(297 missing values generated)
+
+.  forvalues i = 1997(2)2005 {
+  2.   replace teb_b = _b[inst`i'b] if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+.  forvalues i = 1996(2)2006 {
+  2.   replace teb_b = l.teb_b if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+. areg lb_ined  inst1999e inst2003e reg* ag_lb_ined_cover if year_f>1994 & year_f<2007, rob a(uf)
+note: reg1 omitted because of collinearity
+note: reg2 omitted because of collinearity
+note: reg3 omitted because of collinearity
+note: reg4 omitted because of collinearity
+note: reg5 omitted because of collinearity
+note: reg1_02 omitted because of collinearity
+note: reg2_02 omitted because of collinearity
+note: reg3_02 omitted because of collinearity
+note: reg4_02 omitted because of collinearity
+note: reg5_02 omitted because of collinearity
+
+Linear regression, absorbing indicators         Number of obs     =        324
+                                                F(  13,    284)   =      11.17
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.7751
+                                                Adj R-squared     =     0.7442
+                                                Root MSE          =     0.0061
+
+----------------------------------------------------------------------------------
+                 |               Robust
+         lb_ined |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-----------------+----------------------------------------------------------------
+       inst1999e |  -.0032399   .0035885    -0.90   0.367    -.0103035    .0038236
+       inst2003e |   .0037554   .0027168     1.38   0.168    -.0015922    .0091031
+            reg1 |          0  (omitted)
+            reg2 |          0  (omitted)
+            reg3 |          0  (omitted)
+            reg4 |          0  (omitted)
+            reg5 |          0  (omitted)
+         reg1_94 |  -.0016957   .0018625    -0.91   0.363    -.0053619    .0019704
+         reg2_94 |  -.0000862   .0017612    -0.05   0.961    -.0035529    .0033805
+         reg3_94 |  -2.78e-06   .0014633    -0.00   0.998    -.0028831    .0028775
+         reg4_94 |   .0036256   .0026331     1.38   0.170    -.0015573    .0088086
+         reg5_94 |  -.0056923     .00153    -3.72   0.000    -.0087039   -.0026807
+         reg1_98 |   .0037723   .0048151     0.78   0.434    -.0057055    .0132501
+         reg2_98 |  -.0027829   .0016223    -1.72   0.087    -.0059761    .0004103
+         reg3_98 |  -.0007501   .0019808    -0.38   0.705     -.004649    .0031489
+         reg4_98 |    .004135   .0040231     1.03   0.305    -.0037838    .0120539
+         reg5_98 |  -.0011745   .0021479    -0.55   0.585    -.0054023    .0030532
+         reg1_02 |          0  (omitted)
+         reg2_02 |          0  (omitted)
+         reg3_02 |          0  (omitted)
+         reg4_02 |          0  (omitted)
+         reg5_02 |          0  (omitted)
+ag_lb_ined_cover |     -.0383   .0326521    -1.17   0.242    -.1025709    .0259709
+           _cons |   .1150299   .0328972     3.50   0.001     .0502767    .1797832
+-----------------+----------------------------------------------------------------
+              uf |   absorbed                                      (27 categories)
+
+.  gen teq_b = 0 if year_f==1995
+(297 missing values generated)
+
+.  forvalues i = 1999(4)2003 {
+  2.   replace teq_b = _b[inst`i'e] if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+
+.  forvalues i = 1996(4)2004 {
+  2.   replace teq_b = l.teq_b if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+.  forvalues i = 1997(4)2005 {
+  2.   replace teq_b = l.teq_b if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+.  forvalues i = 1998(4)2006 {
+  2.   replace teq_b = l.teq_b if year_f==`i'
+  3.  }
+(27 real changes made)
+(27 real changes made)
+(27 real changes made)
+
+. 
+. foreach i in s v b { 
+  2.  egen temp_`i' = sum(te_`i'*delec2/108)
+  3.  replace te_`i' = te_`i' - temp_`i'
+  4. }
+(324 real changes made)
+(324 real changes made)
+(324 real changes made)
+
+. gen temp_y = (year_f==1995 | year_f==1996) 
+
+. foreach i in s v b { 
+  2.  egen temp2_`i' = sum(te_`i'*temp_y/52)
+  3.  replace teb_`i' = teb_`i' + temp2_`i'
+  4. } 
+(324 real changes made)
+(324 real changes made)
+(324 real changes made)
+
+. 
+. sort year_f
+
+. 
+end of do-file
+
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. scatter te_s year_f if year_f>1994 & year_f<2007, connect(l) || line teb_s year_f if year_f>1994 & year_f<2007, connect(l) lcolor(gs8) || l
+> ine teq_s year_f if year_f>1994 & year_f<2007, connect(l) xline(1998.5) xline(2002.5) legend(off) lcolor(gs10) xlab(1995(1)2006) xtitle("")
+>  lpattern(dash) ytitle("Coefficient on S")
+
+.  graph export yearly_s.eps, replace
+(note: file yearly_s.eps not found)
+(file yearly_s.eps written in EPS format)
+
+. scatter te_v year_f if year_f>1994 & year_f<2007, connect(l) || line teb_v year_f if year_f>1994 & year_f<2007, connect(l) lcolor(gs8) || l
+> ine teq_v year_f if year_f>1994 & year_f<2007, connect(l) xline(1998.5) xline(2002.5) legend(off) lcolor(gs10) xlab(1995(1)2006) xtitle("")
+>  lpattern(dash) ytitle("Coefficient on S")
+
+.  graph export yearly_v.eps, replace
+(note: file yearly_v.eps not found)
+(file yearly_v.eps written in EPS format)
+
+. scatter te_b year_f if year_f>1994 & year_f<2007, connect(l) || line teb_b year_f if year_f>1994 & year_f<2007, connect(l) lcolor(gs8) || l
+> ine teq_b year_f if year_f>1994 & year_f<2007, connect(l) xline(1998.5) xline(2002.5) legend(off) lcolor(gs10) xlab(1995(1)2006) xtitle("")
+>  lpattern(dash) ytitle("Coefficient on S")
+
+.  graph export yearly_b.eps, replace
+(note: file yearly_b.eps not found)
+(file yearly_b.eps written in EPS format)
+
+. 
+end of do-file
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. scatter te_s year_f if year_f>1994 & year_f<2007, connect(l) || line teb_s year_f if year_f>1994 & year_f<2007, connect(l) lcolor(gs8) || l
+> ine teq_s year_f if year_f>1994 & year_f<2007, connect(l) xline(1998.5) xline(2002.5) legend(off) lcolor(gs10) xlab(1995(1)2006) xtitle("")
+>  lpattern(dash) ytitle("Coefficient on S")
+
+.  graph export yearly_s.eps, replace
+(file yearly_s.eps written in EPS format)
+
+. 
+end of do-file
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. scatter te_v year_f if year_f>1994 & year_f<2007, connect(l) || line teb_v year_f if year_f>1994 & year_f<2007, connect(l) lcolor(gs8) || l
+> ine teq_v year_f if year_f>1994 & year_f<2007, connect(l) xline(1998.5) xline(2002.5) legend(off) lcolor(gs10) xlab(1995(1)2006) xtitle("")
+>  lpattern(dash) ytitle("Coefficient on S")
+
+.  graph export yearly_v.eps, replace
+(file yearly_v.eps written in EPS format)
+
+. 
+end of do-file
+
+. do "C:\Users\B45436~1\AppData\Local\Temp\4\STD00000000.tmp"
+
+. scatter te_b year_f if year_f>1994 & year_f<2007, connect(l) || line teb_b year_f if year_f>1994 & year_f<2007, connect(l) lcolor(gs8) || l
+> ine teq_b year_f if year_f>1994 & year_f<2007, connect(l) xline(1998.5) xline(2002.5) legend(off) lcolor(gs10) xlab(1995(1)2006) xtitle("")
+>  lpattern(dash) ytitle("Coefficient on S")
+
+.  graph export yearly_b.eps, replace
+(file yearly_b.eps written in EPS format)
+
+. 
+end of do-file
+
+. exit, clear

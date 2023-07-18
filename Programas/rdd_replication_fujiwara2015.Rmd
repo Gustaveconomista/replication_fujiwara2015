@@ -1,0 +1,160 @@
+---
+title: "Replicação - Fujiwara (2015)"
+author: "Gustavo Henrique"
+date: "2023-07-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introdução
+
+Exercício de replicação de alguns resultados do artigo "VOTING TECHNOLOGY, POLITICAL RESPONSIVENESS, AND INFANT HEALTH: EVIDENCE FROM BRAZIL" de Thomas Fujiwara, publicado em 2015 pela Econometrica.
+
+## Passo 1: Definindo o Diretório de Trabalho
+
+```{r}
+setwd("C:/Users/guhhh/OneDrive/Área de Trabalho/Workspace/Replication_Fujiwara2015")
+```
+
+## Passo 2: Importando os pacotes necessários
+
+```{r}
+pacman::p_load("tidyverse",
+               "haven",
+               "estimatr",
+               "stats",
+               "fixest",
+               "rdrobust",
+               "rddensity",
+               "rdd",
+               "miceadds",
+               "rddtools")
+```
+
+## Passo 3: Carregando a base
+
+```{r}
+df_mun = read_dta('Dados/munic.dta')
+```
+
+## Parte 4: Tratando a base
+
+```{r}
+df_mun = df_mun %>% 
+  mutate(dep = voters96 - 40500,
+         treat = ifelse(dep > 0, 1, 0),
+         deptreat = (dep*treat),
+         bw = ifelse(dep < 0, dep*-1, dep))
+df_mun$bin_voters96 = cut(df_mun$voters96, breaks = c(seq(500, 200000, by = 4000)))
+df_mun$bin_voters96 = as.numeric( sub("\\((.+),.*", "\\1", df_mun$bin_voters96))
+df_mun = df_mun %>%
+  mutate(bin_voters96 = bin_voters96 + 2000) %>% 
+  group_by(bin_voters96) %>%
+  mutate(bin_util94 = mean(r_util94, na.rm = T),
+         bin_util98 = mean(r_util98),
+         bin_util02 = mean(r_util02),
+         bin_attend = mean(attend),
+         bin_regist = mean(regist),
+         bin_obs = n()) %>%
+  ungroup()
+```
+
+## Parte 5: Estimação
+
+```{r}
+feols(r_util98 ~ treat + dep + deptreat,
+      data = df_mun %>% 
+        filter(bw < 11873),
+      vcov = "HC1")
+feols(attend ~ treat + dep + deptreat,
+      data = df_mun %>% 
+        filter(bw < 12438),
+      vcov = "HC1")
+feols(regist ~ treat + dep + deptreat,
+      data = df_mun %>% 
+        filter(bw < 15956),
+      vcov = "HC1")
+feols(r_util94 ~ treat + dep + deptreat,
+      data = df_mun %>% 
+        filter(bw < 17111),
+      vcov = "HC1")
+feols(r_util02 ~ treat + dep + deptreat,
+      data = df_mun %>% 
+        filter(bw < 17204),
+      vcov = "HC1")
+feols(c(r_util98, attend, regist, r_util94, r_util02) ~ treat + dep + deptreat,
+      data = df_mun %>% 
+        filter(bw < 10000),
+      vcov = "HC1")
+feols(c(r_util98, attend, regist, r_util94, r_util02) ~ treat + dep + deptreat,
+      data = df_mun %>% 
+        filter(bw < 5000),
+      vcov = "HC1")
+```
+
+Dado o desconhecimento da existência de um pacote que performe exatamente como o respectivo utilizado pelo autor em Stata, ao invés de calcular a IKBW ("Imbens-Kalyanaraman Optimal Bandwidth") optei por retirar seus valores direto do artigo. 
+
+## Visualização
+
+Nesta seção irei replicar da maneira mais semelhante possível os dois primeiros gráficos apresentados no artigo. O 1º gráfico apresenta a razão dos votos válidos pelo total de participação, agrupada por bins de eleitores registrados em 1996 ao nível de munícipio.
+
+```{r, warning=FALSE}
+# Filtrando os dados de acordo com as condições especificadas
+filtered_data <- subset(df_mun, voters96 < 100000 & voters96 > 4500)
+# Gerando o gráfico
+ggplot(filtered_data, aes(x = bin_voters96)) +
+  geom_point(aes(y = bin_util94), color = "green", shape = 15, size = 2) +
+  geom_point(aes(y = bin_util98), color = "blue", shape = 16, size = 2) +
+  geom_point(aes(y = bin_util02), color = "red", shape = 17, size = 2) +
+  geom_smooth(data = subset(df_mun, voters96 < 40500 & voters96 > 5000),
+              aes(y = r_util94), color = "green", se = FALSE, method = "loess") +
+  geom_smooth(data = subset(df_mun, voters96 < 100000 & voters96 > 40500),
+              aes(y = r_util94), color = "green", se = FALSE) +
+  geom_smooth(data = subset(df_mun, voters96 < 40500 & voters96 > 5000),
+              aes(y = r_util02), color = "red", se = FALSE, method = "loess") +
+  geom_smooth(data = subset(df_mun, voters96 < 100000 & voters96 > 40500),
+              aes(y = r_util02), color = "red", se = FALSE) +
+  geom_smooth(data = subset(df_mun, voters96 < 40500 & voters96 > 5000),
+              aes(y = r_util98), color = "blue", se = FALSE, method = "loess") +
+  geom_smooth(data = subset(df_mun, voters96 < 100000 & voters96 > 40500),
+              aes(y = r_util98), color = "blue", se = FALSE) +
+  xlab("Number of Registered Voters - 1996") +
+  ylab("Valid votes/turnout") +
+  geom_vline(xintercept = 40500, color = "darkred") +
+  scale_y_continuous(limits = c(0.6, 1), breaks = seq(0.6, 1, by = 0.1), minor_breaks = NULL) +
+  theme_bw() +
+  geom_text(data = data.frame(x = 25000, y = 0.9, label = "Valid votes/turnout - 2002"),
+            aes(x = x, y = y, label = label), color = "red") +
+  geom_text(data = data.frame(x = 25000, y = 0.8, label = "Valid votes/turnout - 1998"),
+            aes(x = x, y = y, label = label), color = "blue") +
+  geom_text(data = data.frame(x = 25000, y = 0.6, label = "Valid votes/turnout - 1994"),
+            aes(x = x, y = y, label = label), color = "green")
+```
+
+Por fim, o gráfico abaixo apresenta tanto a razão de votos registrados pela população total quanto a razão da participação de eleitores pelo total de votos registrados, agrupadas por bins de eleitores registrados em 1996 ao nível de munícipio.
+
+```{r, warning=FALSE}
+ggplot(filtered_data, aes(x = bin_voters96)) +
+  geom_point(aes(y = bin_regist), color = "green") +
+  geom_point(aes(y = bin_attend), color = "blue", shape = 17) +
+  geom_smooth(data = subset(df_mun, voters96 < 40500 & voters96 > 5000),
+              aes(y = regist), color = "green", se = FALSE, method = "loess") +
+  geom_smooth(data = subset(df_mun, voters96 < 100000 & voters96 > 40500),
+              aes(y = regist), color = "green", se = FALSE) +
+  geom_smooth(data = subset(df_mun, voters96 < 40500 & voters96 > 5000),
+              aes(y = attend), color = "blue", se = FALSE, method = "loess") +
+  geom_smooth(data = subset(df_mun, voters96 < 100000 & voters96 > 40500),
+              aes(y = attend), color = "blue", se = FALSE) +
+  xlab("Number of Registered Voters - 1996") +
+  geom_vline(xintercept = 40500, color = "darkred") +
+  scale_y_continuous(limits = c(0.6, 1), breaks = seq(0.6, 1, by = 0.1), minor_breaks = NULL) +
+  theme_bw() +
+  geom_text(data = data.frame(x = 25000, y = 0.7, label = "Registered Voters/Total population"),
+            aes(x = x, y = y, label = label), color = "green") +
+  geom_text(data = data.frame(x = 25000, y = 0.8, label = "Turnout/Registered Voters"),
+            aes(x = x, y = y, label = label), color = "blue")
+```
+
