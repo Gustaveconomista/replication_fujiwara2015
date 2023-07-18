@@ -635,7 +635,7 @@ eleitores registrados em 1996 ao nível de munícipio.</p>
 </div>
 <div id="passo-6-salvando-os-resultados" class="section level2">
 <h2>Passo 6: Salvando os resultados</h2>
-<pre class="r"><code>pdf(&quot;Resultados/fig2.pdf&quot;, width = 9, height = 6)
+<pre class="r"><code>jpeg(&quot;Resultados/fig2.jpeg&quot;)
 ggplot(filtered_data, aes(x = bin_voters96)) +
   geom_point(aes(y = bin_util94), color = &quot;green&quot;, shape = 15, size = 2) +
   geom_point(aes(y = bin_util98), color = &quot;blue&quot;, shape = 16, size = 2) +
@@ -672,7 +672,7 @@ ggplot(filtered_data, aes(x = bin_voters96)) +
 <pre class="r"><code>dev.off()</code></pre>
 <pre><code>## png 
 ##   2</code></pre>
-<pre class="r"><code>pdf(&quot;Resultados/fig3.pdf&quot;, width = 9, height = 6)
+<pre class="r"><code>jpeg(&quot;Resultados/fig3.jpeg&quot;)
 ggplot(filtered_data, aes(x = bin_voters96)) +
   geom_point(aes(y = bin_regist), color = &quot;green&quot;) +
   geom_point(aes(y = bin_attend), color = &quot;blue&quot;, shape = 17) +

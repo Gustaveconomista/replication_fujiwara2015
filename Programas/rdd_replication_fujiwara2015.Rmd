@@ -157,7 +157,7 @@ ggplot(filtered_data, aes(x = bin_voters96)) +
 ## Passo 6: Salvando os resultados
 
 ```{r, warning=FALSE}
-pdf("Resultados/fig2.pdf", width = 9, height = 6)
+jpeg("Resultados/fig2.jpeg")
 ggplot(filtered_data, aes(x = bin_voters96)) +
   geom_point(aes(y = bin_util94), color = "green", shape = 15, size = 2) +
   geom_point(aes(y = bin_util98), color = "blue", shape = 16, size = 2) +
@@ -186,7 +186,7 @@ ggplot(filtered_data, aes(x = bin_voters96)) +
   geom_text(data = data.frame(x = 25000, y = 0.6, label = "Valid votes/turnout - 1994"),
             aes(x = x, y = y, label = label), color = "green")
 dev.off()
-pdf("Resultados/fig3.pdf", width = 9, height = 6)
+jpeg("Resultados/fig3.jpeg")
 ggplot(filtered_data, aes(x = bin_voters96)) +
   geom_point(aes(y = bin_regist), color = "green") +
   geom_point(aes(y = bin_attend), color = "blue", shape = 17) +
