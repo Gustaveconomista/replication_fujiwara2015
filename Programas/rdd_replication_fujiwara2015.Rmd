@@ -95,7 +95,7 @@ feols(c(r_util98, attend, regist, r_util94, r_util02) ~ treat + dep + deptreat,
       vcov = "HC1")
 ```
 
-Dado o desconhecimento da existência de um pacote que performe exatamente como o respectivo utilizado pelo autor em Stata, ao invés de calcular a IKBW ("Imbens-Kalyanaraman Optimal Bandwidth") optei por retirar seus valores direto do artigo. 
+Dado o desconhecimento da existência de um pacote que performe exatamente como o respectivo utilizado pelo autor em Stata, ao invés de calcular a IKBW ("Imbens-Kalyanaraman Optimal Bandwidth") optei por retirar seus valores direto do artigo.
 
 ## Visualização
 
@@ -157,4 +157,3 @@ ggplot(filtered_data, aes(x = bin_voters96)) +
   geom_text(data = data.frame(x = 25000, y = 0.8, label = "Turnout/Registered Voters"),
             aes(x = x, y = y, label = label), color = "blue")
 ```
-
