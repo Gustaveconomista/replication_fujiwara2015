@@ -8,6 +8,6 @@ Exercício de replicação em linguagem R de alguns dos principais resultados do
 
 Abaixo temos gráficos semelhantes as figuras 2 e 3 do artigo:
 
-![grafico1](Resultados/fig2.pdf)
+![grafico1](Resultados/fig2.jpeg)
 
-![grafico2](Resultados/fig3.pdf)
+![grafico2](Resultados/fig3.jpeg)
